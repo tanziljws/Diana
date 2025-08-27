@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Oxford Color Scheme with Dark Theme */
+:root {
+    --oxford-navy: #0a1f44;
+    --oxford-gold: #d4af37;
+    --oxford-white: #ffffff;
+    --oxford-dark: #1a1a1a;
+    --oxford-dark-light: #2d2d2d;
+    --oxford-dark-lighter: #404040;
+    --oxford-accent: #64748b;
+    --oxford-success: #10b981;
+    --oxford-warning: #f59e0b;
+    --oxford-error: #ef4444;
+}
+
+/* Custom Utility Classes */
+.text-oxford-navy { color: var(--oxford-navy); }
+.text-oxford-gold { color: var(--oxford-gold); }
+.text-oxford-dark { color: var(--oxford-dark); }
+.text-oxford-accent { color: var(--oxford-accent); }
+.bg-oxford-navy { background-color: var(--oxford-navy); }
+.bg-oxford-gold { background-color: var(--oxford-gold); }
+.bg-oxford-dark { background-color: var(--oxford-dark); }
+.bg-oxford-dark-light { background-color: var(--oxford-dark-light); }
+.bg-oxford-dark-lighter { background-color: var(--oxford-dark-lighter); }
+.border-oxford-navy { border-color: var(--oxford-navy); }
+.border-oxford-gold { border-color: var(--oxford-gold); }
+.border-oxford-dark { border-color: var(--oxford-dark); }
+.hover\:bg-oxford-navy-light:hover { background-color: #1a3a6b; }
+.hover\:bg-oxford-dark-light:hover { background-color: var(--oxford-dark-light); }
+
+/* Font Classes with Modern Typography */
+.font-serif { font-family: 'Merriweather', 'Georgia', serif; }
+.font-sans { font-family: 'Poppins', 'Inter', 'system-ui', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; }
+
+/* Modern Card Styles */
+.oxford-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.oxford-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.oxford-card-dark {
+    background: linear-gradient(to bottom right, var(--oxford-dark), var(--oxford-dark-light));
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+/* Modern Button Styles */
+.oxford-btn-primary {
+    background-color: var(--oxford-gold);
+    color: var(--oxford-navy);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+.oxford-btn-primary:hover {
+    background-color: #f59e0b;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.oxford-btn-secondary {
+    background-color: var(--oxford-navy);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+.oxford-btn-secondary:hover {
+    background-color: #1e40af;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.oxford-btn-dark {
+    background-color: var(--oxford-dark);
+    color: var(--oxford-gold);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+.oxford-btn-dark:hover {
+    background-color: var(--oxford-dark-light);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Dark Theme Enhancements */
+.dark-gradient-bg {
+    background: linear-gradient(135deg, var(--oxford-dark) 0%, var(--oxford-navy) 100%);
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.neon-glow {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Modern Typography */
+.text-gradient {
+    background: linear-gradient(135deg, var(--oxford-gold), #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Force text visibility on buttons */
+.btn-text-visible {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.btn-text-visible svg {
+    fill: #ffffff !important;
+}

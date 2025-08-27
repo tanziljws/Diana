@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" width="120" height="140">
+  <!-- Shield Background -->
+  <path d="M60 10 L20 25 L20 85 Q20 110 60 130 Q100 110 100 85 L100 25 Z" 
+        fill="#0a1f44" stroke="#d4af37" stroke-width="2"/>
+  
+  <!-- Inner Shield -->
+  <path d="M60 18 L28 30 L28 80 Q28 100 60 118 Q92 100 92 80 L92 30 Z" 
+        fill="#1a3a5c"/>
+  
+  <!-- Open Book -->
+  <g transform="translate(40, 35)">
+    <!-- Book pages -->
+    <path d="M0 15 Q0 10 5 10 L15 10 Q20 10 20 15 L20 25 Q20 30 15 30 L5 30 Q0 30 0 25 Z" 
+          fill="#ffffff"/>
+    <path d="M20 15 Q20 10 25 10 L35 10 Q40 10 40 15 L40 25 Q40 30 35 30 L25 30 Q20 30 20 25 Z" 
+          fill="#ffffff"/>
+    <!-- Book binding -->
+    <rect x="18" y="10" width="4" height="20" fill="#d4af37"/>
+    <!-- Text lines -->
+    <line x1="3" y1="18" x2="17" y2="18" stroke="#0a1f44" stroke-width="0.5"/>
+    <line x1="3" y1="21" x2="17" y2="21" stroke="#0a1f44" stroke-width="0.5"/>
+    <line x1="3" y1="24" x2="17" y2="24" stroke="#0a1f44" stroke-width="0.5"/>
+    <line x1="23" y1="18" x2="37" y2="18" stroke="#0a1f44" stroke-width="0.5"/>
+    <line x1="23" y1="21" x2="37" y2="21" stroke="#0a1f44" stroke-width="0.5"/>
+    <line x1="23" y1="24" x2="37" y2="24" stroke="#0a1f44" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Torch -->
+  <g transform="translate(55, 50)">
+    <!-- Torch handle -->
+    <rect x="8" y="15" width="4" height="25" fill="#8B4513"/>
+    <!-- Torch flame -->
+    <path d="M10 5 Q5 10 7 15 Q10 12 10 15 Q10 12 13 15 Q15 10 10 5" 
+          fill="#d4af37"/>
+    <!-- Torch top -->
+    <ellipse cx="10" cy="15" rx="3" ry="2" fill="#CD853F"/>
+  </g>
+  
+  <!-- Motto Ribbon -->
+  <g transform="translate(10, 95)">
+    <!-- Ribbon background -->
+    <path d="M0 10 Q0 5 5 5 L95 5 Q100 5 100 10 L100 20 Q100 25 95 25 L5 25 Q0 25 0 20 Z" 
+          fill="#d4af37" stroke="#0a1f44" stroke-width="1"/>
+    <!-- Ribbon ends -->
+    <path d="M0 10 L-5 15 L0 20" fill="#d4af37"/>
+    <path d="M100 10 L105 15 L100 20" fill="#d4af37"/>
+  </g>
+  
+  <!-- Motto Text -->
+  <text x="60" y="112" text-anchor="middle" font-family="serif" font-size="8" font-weight="bold" fill="#0a1f44">
+    SAPIENTIA ET INNOVATIO
+  </text>
+  
+  <!-- Decorative elements -->
+  <circle cx="35" cy="70" r="2" fill="#d4af37" opacity="0.7"/>
+  <circle cx="85" cy="70" r="2" fill="#d4af37" opacity="0.7"/>
+  <path d="M60 75 L58 78 L62 78 Z" fill="#d4af37" opacity="0.7"/>
+</svg>
