@@ -15,10 +15,26 @@ class AdminController extends Controller
     }
 
     /**
-     * Show admin dashboard
+     * Show admin dashboard - no authentication for demo
      */
     public function dashboard()
     {
         return view('admin.dashboard');
+    }
+
+    /**
+     * Handle admin login - simple redirect for demo
+     */
+    public function authenticate(Request $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        
+        // Simple hardcoded authentication for demo
+        if ($email === 'admin@oxfordhigh.edu' && $password === 'admin123') {
+            return redirect()->route('admin.dashboard');
+        }
+        
+        return back()->withErrors(['email' => 'Invalid credentials. Use: admin@oxfordhigh.edu / admin123']);
     }
 }

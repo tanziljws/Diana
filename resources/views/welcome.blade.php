@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oxford High School of Technology & Arts</title>
+    <title>Oxford High School - Galeri Sekolah</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,29 +22,23 @@
         .font-script { font-family: 'Dancing Script', cursive; }
         .bg-oxford-navy { background-color: var(--oxford-navy); }
         .bg-oxford-gold { background-color: var(--oxford-gold); }
-        .bg-oxford-dark { background-color: var(--oxford-dark); }
-        .bg-oxford-dark-light { background-color: var(--oxford-dark-light); }
         .text-oxford-navy { color: var(--oxford-navy); }
         .text-oxford-gold { color: var(--oxford-gold); }
-        .text-oxford-dark { color: var(--oxford-dark); }
-        .text-oxford-accent { color: var(--oxford-accent); }
         .border-oxford-gold { border-color: var(--oxford-gold); }
-        .dark-gradient-bg {
-            background: linear-gradient(135deg, var(--oxford-dark) 0%, var(--oxford-navy) 100%);
+        .bg-oxford-navy-light { background-color: var(--oxford-navy-light); }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--oxford-gold), #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .neon-glow {
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-        }
-        .text-gradient {
-            background: linear-gradient(135deg, var(--oxford-gold), #f59e0b, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         .subtle-glow {
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
@@ -55,7 +48,7 @@
         }
     </style>
 </head>
-<body class="dark-gradient-bg font-sans">
+<body class="font-sans">
     <div class="min-h-screen">
         <!-- Header -->
         <header class="bg-oxford-navy text-white shadow-lg border-b-4 border-oxford-gold">
@@ -69,12 +62,6 @@
                         </div>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <a href="/user" class="bg-gradient-to-r from-oxford-gold to-yellow-400 px-6 py-3 rounded-full transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 btn-text-visible">
-                            <svg class="w-4 h-4 inline mr-2" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
-                            </svg>
-                            Masuk ke Website
-                        </a>
                         <a href="/admin/login" class="bg-white hover:bg-gray-50 px-6 py-3 rounded-full transition-all duration-300 font-semibold border-2 border-oxford-gold shadow-lg hover:shadow-xl transform hover:scale-105" style="color: #0a1f44 !important; text-decoration: none;">
                             <svg class="w-4 h-4 inline mr-2" fill="#0a1f44" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
@@ -99,6 +86,14 @@
                             <h3 class="font-serif font-bold text-2xl mb-4 text-oxford-gold">Welcome!</h3>
                             <p class="text-lg mb-4">Sistem Informasi Galeri Sekolah Oxford High School of Technology & Arts</p>
                             <p class="text-sm opacity-90">Klik tombol "Masuk ke Website" di header untuk mengakses galeri dan informasi sekolah</p>
+                        </div>
+                        <div class="text-center mb-8">
+                            <a href="/user" class="bg-oxford-gold text-oxford-navy px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors inline-flex items-center">
+                                Explore Website
+                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                             <div class="bg-oxford-navy text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 subtle-glow">
@@ -133,39 +128,6 @@
                 </div>
             </div>
 
-            <!-- Features Section -->
-            <div class="bg-gradient-to-br from-gray-900 to-oxford-navy rounded-lg shadow-xl border-t-4 border-oxford-gold p-12 mb-8">
-                <h2 class="text-5xl font-serif font-bold text-white mb-8 text-center">Platform Features</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 border border-oxford-gold border-opacity-30 hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-oxford-gold mb-4 text-center">
-                            <svg class="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-serif font-bold text-oxford-gold mb-3 text-center">Modern API</h3>
-                        <p class="text-white opacity-90 text-center">RESTful API dengan Laravel 12 untuk integrasi yang mudah dan performa optimal</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 border border-oxford-gold border-opacity-30 hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-oxford-gold mb-4 text-center">
-                            <svg class="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-serif font-bold text-oxford-gold mb-3 text-center">Secure Access</h3>
-                        <p class="text-white opacity-90 text-center">Sistem keamanan berlapis dengan role-based authentication</p>
-                    </div>
-                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 border border-oxford-gold border-opacity-30 hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-oxford-gold mb-4 text-center">
-                            <svg class="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-serif font-bold text-oxford-gold mb-3 text-center">Responsive Design</h3>
-                        <p class="text-white opacity-90 text-center">Tampilan yang optimal di semua perangkat dan platform</p>
-                    </div>
-                </div>
-            </div>
         </main>
 
         <!-- Footer -->

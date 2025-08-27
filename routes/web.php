@@ -10,8 +10,9 @@ Route::get('/', function () {
 
 // Admin routes
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::post('/admin/login', [AdminController::class, 'authenticate'])->name('admin.authenticate');
+Route::get('/admin/dashboard', function() { return view('admin.dashboard'); })->name('admin.dashboard');
 
 // User routes
-
 Route::get('/user', [UserController::class, 'index'])->name('user.home');
+Route::get('/gallery', [UserController::class, 'index'])->name('gallery.index');

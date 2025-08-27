@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\KategoriController;
@@ -24,54 +25,194 @@ use App\Http\Controllers\Api\ProfileController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// Public data routes
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{id}', [PostController::class, 'show']);
-Route::get('/posts/category/{kategoriId}', [PostController::class, 'byCategory']);
-Route::get('/kategoris', [KategoriController::class, 'index']);
-Route::get('/kategoris/{id}', [KategoriController::class, 'show']);
-Route::get('/galleries', [GalleryController::class, 'index']);
-Route::get('/galleries/{id}', [GalleryController::class, 'show']);
-Route::get('/agendas', [AgendaController::class, 'index']);
-Route::get('/agendas/upcoming', [AgendaController::class, 'upcoming']);
-Route::get('/agendas/{id}', [AgendaController::class, 'show']);
-Route::get('/profiles', [ProfileController::class, 'index']);
-Route::get('/profiles/{id}', [ProfileController::class, 'show']);
+// Public data routes - connected to database
+Route::get('/posts', function() {
+    try {
+        $posts = DB::table('posts')
+            ->leftJoin('kategori', 'posts.kategori_id', '=', 'kategori.id')
+            ->select('posts.*', 'kategori.nama_kategori')
+            ->get();
+        
+        // Map Indonesian column names to English for frontend compatibility
+        $posts = $posts->map(function($post) {
+            return [
+                'id' => $post->id,
+                'title' => $post->judul ?? $post->title ?? '',
+                'content' => $post->isi ?? $post->content ?? '',
+                'judul' => $post->judul ?? $post->title ?? '',
+                'isi' => $post->isi ?? $post->content ?? '',
+                'kategori_id' => $post->kategori_id,
+                'image' => $post->gambar ?? $post->image ?? '',
+                'gambar' => $post->gambar ?? $post->image ?? '',
+                'nama_kategori' => $post->nama_kategori,
+                'created_at' => $post->created_at,
+                'updated_at' => $post->updated_at
+            ];
+        });
+        
+        return response()->json($posts);
+    } catch (Exception $e) {
+        return response()->json(['error' => 'Database error: ' . $e->getMessage()], 500);
+    }
+});
 
-// Protected routes (require authentication)
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
+Route::get('/kategoris', function() {
+    $kategoris = DB::table('kategori')->get();
+    return response()->json($kategoris);
+});
 
-    // Admin only routes
-    Route::middleware('admin')->group(function () {
-        // Posts management
-        Route::post('/posts', [PostController::class, 'store']);
-        Route::put('/posts/{id}', [PostController::class, 'update']);
-        Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+Route::get('/galleries', function() {
+    $galleries = DB::table('gallery')->get();
+    return response()->json($galleries);
+});
 
-        // Categories management
-        Route::post('/kategoris', [KategoriController::class, 'store']);
-        Route::put('/kategoris/{id}', [KategoriController::class, 'update']);
-        Route::delete('/kategoris/{id}', [KategoriController::class, 'destroy']);
+Route::get('/agendas', function() {
+    $agendas = DB::table('agenda')->get();
+    return response()->json($agendas);
+});
 
-        // Galleries management
-        Route::post('/galleries', [GalleryController::class, 'store']);
-        Route::put('/galleries/{id}', [GalleryController::class, 'update']);
-        Route::delete('/galleries/{id}', [GalleryController::class, 'destroy']);
-        Route::post('/galleries/{gallery_id}/photos', [GalleryController::class, 'uploadPhoto']);
-        Route::delete('/photos/{id}', [GalleryController::class, 'deletePhoto']);
+// Admin CRUD routes - connected to database
+// Posts management
+Route::post('/posts', function(Request $request) {
+    try {
+        $data = [
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+        
+        // Map English field names to Indonesian database columns
+        if ($request->has('title')) {
+            $data['judul'] = $request->title;
+        }
+        if ($request->has('content')) {
+            $data['isi'] = $request->content;
+        }
+        if ($request->has('kategori_id')) {
+            $data['kategori_id'] = $request->kategori_id;
+        }
+        if ($request->has('image')) {
+            $data['gambar'] = $request->image;
+        }
+        
+        $id = DB::table('posts')->insertGetId($data);
+        return response()->json(['message' => 'Post created successfully', 'id' => $id]);
+    } catch (Exception $e) {
+        return response()->json(['error' => 'Database error: ' . $e->getMessage()], 500);
+    }
+});
 
-        // Agendas management
-        Route::post('/agendas', [AgendaController::class, 'store']);
-        Route::put('/agendas/{id}', [AgendaController::class, 'update']);
-        Route::delete('/agendas/{id}', [AgendaController::class, 'destroy']);
+Route::put('/posts/{id}', function(Request $request, $id) {
+    try {
+        $data = ['updated_at' => now()];
+        
+        if ($request->has('title')) {
+            $data['judul'] = $request->title;
+        }
+        if ($request->has('content')) {
+            $data['isi'] = $request->content;
+        }
+        if ($request->has('kategori_id')) {
+            $data['kategori_id'] = $request->kategori_id;
+        }
+        if ($request->has('image')) {
+            $data['gambar'] = $request->image;
+        }
+        
+        DB::table('posts')->where('id', $id)->update($data);
+        return response()->json(['message' => 'Post updated successfully']);
+    } catch (Exception $e) {
+        return response()->json(['error' => 'Database error: ' . $e->getMessage()], 500);
+    }
+});
 
-        // Profiles management
-        Route::post('/profiles', [ProfileController::class, 'store']);
-        Route::put('/profiles/{id}', [ProfileController::class, 'update']);
-        Route::delete('/profiles/{id}', [ProfileController::class, 'destroy']);
-    });
+Route::delete('/posts/{id}', function($id) {
+    DB::table('posts')->where('id', $id)->delete();
+    return response()->json(['message' => 'Post deleted successfully']);
+});
+
+// Categories management
+Route::post('/kategoris', function(Request $request) {
+    $id = DB::table('kategori')->insertGetId([
+        'nama_kategori' => $request->nama_kategori,
+        'deskripsi' => $request->deskripsi,
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+    return response()->json(['message' => 'Category created successfully', 'id' => $id]);
+});
+
+Route::put('/kategoris/{id}', function(Request $request, $id) {
+    DB::table('kategori')->where('id', $id)->update([
+        'nama_kategori' => $request->nama_kategori,
+        'deskripsi' => $request->deskripsi,
+        'updated_at' => now()
+    ]);
+    return response()->json(['message' => 'Category updated successfully']);
+});
+
+Route::delete('/kategoris/{id}', function($id) {
+    DB::table('kategori')->where('id', $id)->delete();
+    return response()->json(['message' => 'Category deleted successfully']);
+});
+
+// Galleries management
+Route::post('/galleries', function(Request $request) {
+    $id = DB::table('gallery')->insertGetId([
+        'judul' => $request->judul,
+        'deskripsi' => $request->deskripsi,
+        'tanggal' => $request->tanggal,
+        'cover_image' => $request->cover_image,
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+    return response()->json(['message' => 'Gallery created successfully', 'id' => $id]);
+});
+
+Route::put('/galleries/{id}', function(Request $request, $id) {
+    DB::table('gallery')->where('id', $id)->update([
+        'judul' => $request->judul,
+        'deskripsi' => $request->deskripsi,
+        'tanggal' => $request->tanggal,
+        'cover_image' => $request->cover_image,
+        'updated_at' => now()
+    ]);
+    return response()->json(['message' => 'Gallery updated successfully']);
+});
+
+Route::delete('/galleries/{id}', function($id) {
+    DB::table('gallery')->where('id', $id)->delete();
+    return response()->json(['message' => 'Gallery deleted successfully']);
+});
+
+// Agendas management
+Route::post('/agendas', function(Request $request) {
+    $id = DB::table('agenda')->insertGetId([
+        'judul' => $request->judul,
+        'deskripsi' => $request->deskripsi,
+        'tanggal' => $request->tanggal,
+        'waktu' => $request->waktu,
+        'tempat' => $request->tempat,
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+    return response()->json(['message' => 'Agenda created successfully', 'id' => $id]);
+});
+
+Route::put('/agendas/{id}', function(Request $request, $id) {
+    DB::table('agenda')->where('id', $id)->update([
+        'judul' => $request->judul,
+        'deskripsi' => $request->deskripsi,
+        'tanggal' => $request->tanggal,
+        'waktu' => $request->waktu,
+        'tempat' => $request->tempat,
+        'updated_at' => now()
+    ]);
+    return response()->json(['message' => 'Agenda updated successfully']);
+});
+
+Route::delete('/agendas/{id}', function($id) {
+    DB::table('agenda')->where('id', $id)->delete();
+    return response()->json(['message' => 'Agenda deleted successfully']);
 });
 
 

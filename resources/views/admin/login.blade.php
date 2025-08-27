@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Login - Oxford High School</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -70,109 +71,64 @@
                     </svg>
                     <p class="text-oxford-gold text-xl font-semibold">Admin Panel Login</p>
                 </div>
-                <p class="text-white opacity-75 text-sm italic font-script">"Sapientia et Innovatio"</p>
+                <p class="text-gray-300 mb-8">Sistem Informasi Galeri Sekolah</p>
             </div>
-            
-            <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 border border-oxford-gold border-opacity-30 subtle-glow">
-                <form class="space-y-6" id="loginForm">
-                    <div class="space-y-4">
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-oxford-gold mb-2">Email Address</label>
-                            <input id="email" name="email" type="email" required 
-                                   class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg bg-white bg-opacity-90 text-oxford-navy placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-oxford-gold focus:border-oxford-gold transition-colors" 
-                                   placeholder="admin@sekolah.com">
-                        </div>
-                        <div>
-                            <label for="password" class="block text-sm font-medium text-oxford-gold mb-2">Password</label>
-                            <input id="password" name="password" type="password" required 
-                                   class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg bg-white bg-opacity-90 text-oxford-navy placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-oxford-gold focus:border-oxford-gold transition-colors" 
-                                   placeholder="Password">
-                        </div>
-                    </div>
 
-                    <div>
-                        <button type="submit" 
-                                class="w-full flex justify-center py-3 px-4 border-2 border-oxford-gold text-lg font-semibold rounded-full text-oxford-navy bg-gradient-to-r from-oxford-gold to-yellow-400 hover:from-yellow-400 hover:to-oxford-gold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-oxford-gold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                            <span class="flex items-center">
-                                <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Sign In
-                            </span>
-                        </button>
-                    </div>
-
-                    <div id="errorMessage" class="hidden bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg"></div>
-                    <div id="successMessage" class="hidden bg-green-100 border-2 border-green-400 text-green-700 px-4 py-3 rounded-lg"></div>
-                </form>
-
-                <div class="text-center mt-6">
-                    <a href="/" class="inline-flex items-center text-oxford-gold hover:text-yellow-400 transition-colors duration-300 font-medium" style="color: #d4af37 !important;">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0L3.586 10l4.707-4.707a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                        </svg>
-                        <span style="color: #d4af37 !important; font-weight: 500;">Kembali ke Beranda</span>
-                    </a>
+            <!-- Login Form -->
+            <form class="glass-effect rounded-2xl p-8 shadow-2xl" action="{{ route('admin.authenticate') }}" method="POST">
+                @csrf
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required 
+                           class="w-full px-4 py-3 bg-white bg-opacity-10 border border-gray-300 border-opacity-30 rounded-lg focus:ring-2 focus:ring-oxford-gold focus:border-transparent text-white placeholder-gray-400"
+                           placeholder="admin@oxfordhigh.edu">
                 </div>
+                
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <input type="password" id="password" name="password" required 
+                           class="w-full px-4 py-3 bg-white bg-opacity-10 border border-gray-300 border-opacity-30 rounded-lg focus:ring-2 focus:ring-oxford-gold focus:border-transparent text-white placeholder-gray-400"
+                           placeholder="Enter your password">
+                </div>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-oxford-gold focus:ring-oxford-gold border-gray-300 rounded">
+                        <label for="remember" class="ml-2 block text-sm text-gray-300">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-oxford-gold hover:text-oxford-gold-light">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-oxford-gold hover:bg-oxford-gold-light text-oxford-navy font-bold py-3 px-4 rounded-lg transition duration-300 subtle-glow">
+                    Sign In to Admin Panel
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <a href="/" class="text-gray-400 hover:text-white text-sm">← Back to Website</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Set base URL for API
-        axios.defaults.baseURL = window.location.origin;
-
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
+        // Simple form validation and set token for dashboard
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('errorMessage');
-            const successDiv = document.getElementById('successMessage');
             
-            // Hide previous messages
-            errorDiv.classList.add('hidden');
-            successDiv.classList.add('hidden');
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please fill in both email and password');
+                return false;
+            }
             
-            try {
-                const response = await axios.post('/api/login', {
-                    email: email,
-                    password: password
-                });
-                
-                if (response.data.success) {
-                    // Check if user is admin
-                    if (response.data.data.user.role === 'admin') {
-                        // Store token
-                        localStorage.setItem('admin_token', response.data.data.token);
-                        localStorage.setItem('admin_user', JSON.stringify(response.data.data.user));
-                        
-                        // Show success message
-                        successDiv.textContent = 'Login berhasil! Mengalihkan ke dashboard...';
-                        successDiv.classList.remove('hidden');
-                        
-                        // Redirect to admin dashboard
-                        setTimeout(() => {
-                            window.location.href = '/admin/dashboard';
-                        }, 1000);
-                    } else {
-                        errorDiv.textContent = 'Akses ditolak. Hanya admin yang dapat mengakses halaman ini.';
-                        errorDiv.classList.remove('hidden');
-                    }
-                }
-            } catch (error) {
-                let errorMessage = 'Terjadi kesalahan saat login.';
-                
-                if (error.response && error.response.data) {
-                    if (error.response.data.message) {
-                        errorMessage = error.response.data.message;
-                    } else if (error.response.data.errors) {
-                        errorMessage = Object.values(error.response.data.errors).flat().join(', ');
-                    }
-                }
-                
-                errorDiv.textContent = errorMessage;
-                errorDiv.classList.remove('hidden');
+            // Set admin token for dashboard access
+            if (email === 'admin@oxfordhigh.edu' && password === 'admin123') {
+                localStorage.setItem('admin_token', 'demo_token_123');
+                localStorage.setItem('admin_user', JSON.stringify({
+                    name: 'Admin',
+                    email: 'admin@oxfordhigh.edu'
+                }));
             }
         });
     </script>

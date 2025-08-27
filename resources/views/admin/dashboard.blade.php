@@ -332,18 +332,9 @@
                                         <label class="block text-sm font-semibold text-oxford-navy mb-2">Content</label>
                                         <textarea id="postContent" rows="6" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none"></textarea>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-semibold text-oxford-navy mb-2">Status</label>
-                                            <select id="postStatus" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
-                                                <option value="draft">Draft</option>
-                                                <option value="published">Published</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-semibold text-oxford-navy mb-2">Featured Image URL</label>
-                                            <input type="url" id="postImage" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
-                                        </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-oxford-navy mb-2">Featured Image URL</label>
+                                        <input type="url" id="postImage" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
                                     </div>
                                     <div class="flex space-x-4">
                                         <button type="submit" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold">
@@ -382,15 +373,9 @@
                             <div id="createCategoryForm" class="hidden mb-8 oxford-card rounded-lg p-6">
                                 <h4 class="text-xl font-serif font-bold text-oxford-navy mb-4">Create New Category</h4>
                                 <form id="categoryForm" class="space-y-4">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-semibold text-oxford-navy mb-2">Category Name</label>
-                                            <input type="text" id="categoryName" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-semibold text-oxford-navy mb-2">Slug</label>
-                                            <input type="text" id="categorySlug" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
-                                        </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-oxford-navy mb-2">Category Name</label>
+                                        <input type="text" id="categoryName" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-semibold text-oxford-navy mb-2">Description</label>
@@ -499,14 +484,6 @@
                                     <div>
                                         <label class="block text-sm font-semibold text-oxford-navy mb-2">Description</label>
                                         <textarea id="agendaDescription" rows="4" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none"></textarea>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-oxford-navy mb-2">Status</label>
-                                        <select id="agendaStatus" class="w-full px-4 py-3 border-2 border-oxford-gold border-opacity-30 rounded-lg focus:border-oxford-navy focus:outline-none">
-                                            <option value="active">Active</option>
-                                            <option value="cancelled">Cancelled</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
                                     </div>
                                     <div class="flex space-x-4">
                                         <button type="submit" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold">Save Agenda</button>
@@ -626,17 +603,12 @@
         axios.defaults.baseURL = window.location.origin;
 
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
             loadDashboardData();
         });
 
         function checkAuth() {
-            const token = localStorage.getItem('admin_token');
-            if (!token) {
-                window.location.href = '/admin/login';
-                return;
-            }
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            // No authentication check - demo mode
+            return true;
         }
 
         async function loadDashboardData() {
@@ -648,12 +620,16 @@
                     axios.get('/api/agendas')
                 ]);
 
-                document.getElementById('totalPosts').textContent = postsRes.data.data.length;
-                document.getElementById('totalCategories').textContent = categoriesRes.data.data.length;
-                document.getElementById('totalGalleries').textContent = galleriesRes.data.data.length;
-                document.getElementById('totalAgendas').textContent = agendasRes.data.data.length;
+                document.getElementById('totalPosts').textContent = postsRes.data.length || 0;
+                document.getElementById('totalCategories').textContent = categoriesRes.data.length || 0;
+                document.getElementById('totalGalleries').textContent = galleriesRes.data.length || 0;
+                document.getElementById('totalAgendas').textContent = agendasRes.data.length || 0;
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
+                document.getElementById('totalPosts').textContent = '0';
+                document.getElementById('totalCategories').textContent = '0';
+                document.getElementById('totalGalleries').textContent = '0';
+                document.getElementById('totalAgendas').textContent = '0';
             }
         }
 
@@ -747,42 +723,36 @@
         // CRUD Operations for Posts
         async function createPost() {
             const formData = {
-                judul: document.getElementById('postTitle').value,
-                konten: document.getElementById('postContent').value,
+                title: document.getElementById('postTitle').value,
+                content: document.getElementById('postContent').value,
                 kategori_id: document.getElementById('postCategory').value,
-                status: document.getElementById('postStatus').value,
-                gambar: document.getElementById('postImage').value
+                image: document.getElementById('postImage').value
             };
 
             try {
                 const response = await axios.post('/api/posts', formData);
-                if (response.data.success) {
-                    hideCreatePostForm();
-                    loadPosts();
-                    showNotification('Post created successfully!', 'success');
-                }
+                hideCreatePostForm();
+                loadPosts();
+                showNotification('Post created successfully!', 'success');
             } catch (error) {
-                showNotification('Error creating post: ' + (error.response?.data?.message || error.message), 'error');
+                showNotification('Error creating post: ' + (error.response?.data?.error || error.message), 'error');
             }
         }
 
         // CRUD Operations for Categories
         async function createCategory() {
             const formData = {
-                nama: document.getElementById('categoryName').value,
-                slug: document.getElementById('categorySlug').value,
+                nama_kategori: document.getElementById('categoryName').value,
                 deskripsi: document.getElementById('categoryDescription').value
             };
 
             try {
                 const response = await axios.post('/api/kategoris', formData);
-                if (response.data.success) {
-                    hideCreateCategoryForm();
-                    loadCategories();
-                    showNotification('Category created successfully!', 'success');
-                }
+                hideCreateCategoryForm();
+                loadCategories();
+                showNotification('Category created successfully!', 'success');
             } catch (error) {
-                showNotification('Error creating category: ' + (error.response?.data?.message || error.message), 'error');
+                showNotification('Error creating category: ' + (error.response?.data?.error || error.message), 'error');
             }
         }
 
@@ -791,19 +761,17 @@
             const formData = {
                 judul: document.getElementById('galleryTitle').value,
                 deskripsi: document.getElementById('galleryDescription').value,
-                tanggal_event: document.getElementById('galleryDate').value,
+                tanggal: document.getElementById('galleryDate').value,
                 cover_image: document.getElementById('galleryCover').value
             };
 
             try {
                 const response = await axios.post('/api/galleries', formData);
-                if (response.data.success) {
-                    hideCreateGalleryForm();
-                    loadGalleries();
-                    showNotification('Gallery created successfully!', 'success');
-                }
+                hideCreateGalleryForm();
+                loadGalleries();
+                showNotification('Gallery created successfully!', 'success');
             } catch (error) {
-                showNotification('Error creating gallery: ' + (error.response?.data?.message || error.message), 'error');
+                showNotification('Error creating gallery: ' + (error.response?.data?.error || error.message), 'error');
             }
         }
 
@@ -814,19 +782,16 @@
                 deskripsi: document.getElementById('agendaDescription').value,
                 tanggal: document.getElementById('agendaDate').value,
                 waktu: document.getElementById('agendaTime').value,
-                lokasi: document.getElementById('agendaLocation').value,
-                status: document.getElementById('agendaStatus').value
+                tempat: document.getElementById('agendaLocation').value
             };
 
             try {
                 const response = await axios.post('/api/agendas', formData);
-                if (response.data.success) {
-                    hideCreateAgendaForm();
-                    loadAgendas();
-                    showNotification('Agenda created successfully!', 'success');
-                }
+                hideCreateAgendaForm();
+                loadAgendas();
+                showNotification('Agenda created successfully!', 'success');
             } catch (error) {
-                showNotification('Error creating agenda: ' + (error.response?.data?.message || error.message), 'error');
+                showNotification('Error creating agenda: ' + (error.response?.data?.error || error.message), 'error');
             }
         }
 
@@ -837,10 +802,10 @@
                 const select = document.getElementById('postCategory');
                 select.innerHTML = '<option value="">Select Category</option>';
                 
-                response.data.data.forEach(category => {
+                response.data.forEach(category => {
                     const option = document.createElement('option');
                     option.value = category.id;
-                    option.textContent = category.nama;
+                    option.textContent = category.nama_kategori;
                     select.appendChild(option);
                 });
             } catch (error) {
@@ -1040,7 +1005,7 @@
         function logout() {
             localStorage.removeItem('admin_token');
             localStorage.removeItem('admin_user');
-            window.location.href = '/admin/login';
+            window.location.href = '/';
         }
     </script>
 </body>
