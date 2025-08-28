@@ -304,12 +304,12 @@
                                 <h3 class="text-2xl font-serif font-bold text-oxford-navy">Manage Posts & News</h3>
                                 <p class="text-oxford-gold text-sm">Create and manage school posts and news articles</p>
                             </div>
-                            <button onclick="showCreatePostForm()" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
+                            <a href="{{ route('admin.posts.create') }}" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
                                 </svg>
                                 Create New Post
-                            </button>
+                            </a>
                         </div>
                         <div class="p-8">
                             <!-- Create Post Form -->
@@ -361,12 +361,12 @@
                                 <h3 class="text-2xl font-serif font-bold text-oxford-navy">Manage Categories</h3>
                                 <p class="text-oxford-gold text-sm">Organize content with categories</p>
                             </div>
-                            <button onclick="showCreateCategoryForm()" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
+                            <a href="{{ route('admin.kategoris.create') }}" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
                                 </svg>
                                 Create Category
-                            </button>
+                            </a>
                         </div>
                         <div class="p-8">
                             <!-- Create Category Form -->
@@ -400,12 +400,12 @@
                                 <h3 class="text-2xl font-serif font-bold text-oxford-navy">Manage Galleries</h3>
                                 <p class="text-oxford-gold text-sm">Upload and organize photo galleries</p>
                             </div>
-                            <button onclick="showCreateGalleryForm()" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
+                            <a href="{{ route('admin.galleries.create') }}" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
                                 </svg>
                                 Create Gallery
-                            </button>
+                            </a>
                         </div>
                         <div class="p-8">
                             <!-- Create Gallery Form -->
@@ -449,12 +449,12 @@
                                 <h3 class="text-2xl font-serif font-bold text-oxford-navy">Manage Agendas</h3>
                                 <p class="text-oxford-gold text-sm">Schedule and manage school events</p>
                             </div>
-                            <button onclick="showCreateAgendaForm()" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
+                            <a href="{{ route('admin.agendas.create') }}" class="oxford-btn-primary px-6 py-3 rounded-lg font-semibold flex items-center">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
                                 </svg>
                                 Create Agenda
-                            </button>
+                            </a>
                         </div>
                         <div class="p-8">
                             <!-- Create Agenda Form -->

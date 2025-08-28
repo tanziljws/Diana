@@ -26,9 +26,6 @@ class Gallery extends Model
         return $this->belongsTo(Post::class, 'post_id', 'id_p');
     }
 
-    /**
-     * Get photos for this gallery
-     */
     public function fotos()
     {
         return $this->hasMany(Foto::class, 'gallery_id', 'id_g');

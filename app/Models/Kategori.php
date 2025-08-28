@@ -11,14 +11,8 @@ class Kategori extends Model
 
     protected $table = 'kategori';
     protected $primaryKey = 'id_k';
+    protected $fillable = ['kategori'];
 
-    protected $fillable = [
-        'kategori',
-    ];
-
-    /**
-     * Get posts for this category
-     */
     public function posts()
     {
         return $this->hasMany(Post::class, 'kategori_id', 'id_k');

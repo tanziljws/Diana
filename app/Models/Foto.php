@@ -12,11 +12,7 @@ class Foto extends Model
     protected $table = 'foto';
     protected $primaryKey = 'id_f';
 
-    protected $fillable = [
-        'gallery_id',
-        'file',
-        'judul',
-    ];
+    protected $fillable = ['gallery_id', 'file', 'judul'];
 
     /**
      * Get the gallery that owns the photo

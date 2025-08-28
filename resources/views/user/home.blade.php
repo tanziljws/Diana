@@ -373,13 +373,13 @@
         // Load posts
         async function loadPosts() {
             try {
-                const response = await axios.get('/api/posts');
-                const posts = response.data.data;
+                // Use PHP data passed from controller instead of API
+                const posts = @json($posts ?? []);
                 
                 const postsHtml = posts.map(post => `
                     <div class="bg-white rounded-2xl shadow-2xl border-t-4 border-oxford-gold overflow-hidden hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 group">
                         <div class="relative">
-                            ${post.gambar ? `<img src="${post.gambar}" alt="${post.judul}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">` : `<div class="w-full h-48 bg-gradient-to-br from-oxford-navy to-oxford-gold flex items-center justify-center"><svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"/></svg></div>`}
+                            <div class="w-full h-48 bg-gradient-to-br from-oxford-navy to-oxford-gold flex items-center justify-center"><svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"/></svg></div>
                             <div class="absolute top-4 right-4">
                                 <span class="px-3 py-1 text-xs font-bold rounded-full ${post.status === 'published' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'} shadow-lg">
                                     ${post.status === 'published' ? 'PUBLISHED' : 'DRAFT'}
@@ -395,12 +395,6 @@
                             </div>
                             <h3 class="text-2xl font-serif font-bold text-oxford-navy mb-4 group-hover:text-oxford-gold transition-colors">${post.judul}</h3>
                             <p class="text-gray-700 mb-6 leading-relaxed line-clamp-3">${post.konten.substring(0, 150)}...</p>
-                            <a href="/" class="bg-gradient-to-r from-oxford-gold to-yellow-400 px-4 py-2 rounded-full hover:shadow-lg font-semibold transition-all duration-300 transform hover:scale-105 text-sm" style="color: #ffffff !important; text-decoration: none;">
-                        <svg class="w-3 h-3 inline mr-1" fill="#ffffff" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0L3.586 10l4.707-4.707a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                        </svg>
-                        Homepage
-                    </a>
                             <button class="bg-gradient-to-r from-oxford-navy to-oxford-navy-light text-white px-6 py-3 rounded-full font-semibold text-sm hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full">
                                 <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10 9.586l3.707 3.707a1 1 0 011.414 0l4-4a1 1 0 010-1.414l-4-4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
@@ -421,8 +415,7 @@
         // Load galleries
         async function loadGalleries() {
             try {
-                const response = await axios.get('/api/galleries');
-                const galleries = response.data.data;
+                const galleries = @json($galleries ?? []);
                 
                 const galleriesHtml = galleries.map(gallery => `
                     <div class="bg-white rounded-2xl shadow-2xl border-t-4 border-oxford-gold overflow-hidden hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 group">
@@ -449,8 +442,8 @@
                                 </svg>
                                 <span class="text-sm font-semibold text-oxford-gold bg-oxford-gold bg-opacity-10 px-3 py-1 rounded-full">Gallery Collection</span>
                             </div>
-                            <h3 class="text-2xl font-serif font-bold text-oxford-navy mb-4 group-hover:text-oxford-gold transition-colors">${gallery.judul || `Gallery #${gallery.id_g}`}</h3>
-                            <p class="text-gray-700 mb-6 leading-relaxed">${gallery.deskripsi || (gallery.post ? gallery.post.judul : 'Koleksi foto kegiatan sekolah')}</p>
+                            <h3 class="text-2xl font-serif font-bold text-oxford-navy mb-4 group-hover:text-oxford-gold transition-colors">${gallery.nama_gallery || `Gallery #${gallery.id}`}</h3>
+                            <p class="text-gray-700 mb-6 leading-relaxed">${gallery.deskripsi || 'Koleksi foto kegiatan sekolah'}</p>
                             <button class="bg-gradient-to-r from-oxford-gold to-yellow-500 text-oxford-navy px-6 py-3 rounded-full font-semibold text-sm hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full">
                                 <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
@@ -471,8 +464,7 @@
         // Load agendas
         async function loadAgendas() {
             try {
-                const response = await axios.get('/api/agendas');
-                const agendas = response.data.data;
+                const agendas = @json($agendas ?? []);
                 
                 const agendasHtml = agendas.map(agenda => `
                     <div class="bg-white rounded-2xl shadow-2xl border-t-4 border-oxford-gold overflow-hidden hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 group">
@@ -487,8 +479,8 @@
                                 </div>
                             </div>
                             <div class="absolute top-4 right-4">
-                                <span class="px-3 py-1 text-xs font-bold rounded-full ${agenda.status === 'active' ? 'bg-green-500 text-white' : agenda.status === 'completed' ? 'bg-blue-500 text-white' : 'bg-red-500 text-white'} shadow-lg">
-                                    ${agenda.status === 'active' ? 'ACTIVE' : agenda.status === 'completed' ? 'COMPLETED' : 'CANCELLED'}
+                                <span class="px-3 py-1 text-xs font-bold rounded-full ${agenda.status === 'active' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'} shadow-lg">
+                                    ${agenda.status === 'active' ? 'ACTIVE' : 'INACTIVE'}
                                 </span>
                             </div>
                             ${agenda.waktu ? `<div class="absolute bottom-4 left-4"><div class="flex items-center bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>${agenda.waktu}</div></div>` : ''}
