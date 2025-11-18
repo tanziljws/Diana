@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gallery_views', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        // Check if table doesn't exist before creating
+        if (!Schema::hasTable('gallery_views')) {
+            Schema::create('gallery_views', function (Blueprint $table) {
+                $table->id();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
