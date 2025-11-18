@@ -13,9 +13,13 @@ class Gallery extends Model
     protected $primaryKey = 'id_g';
 
     protected $fillable = [
+        'judul',
+        'deskripsi',
+        'kategori_id',
         'post_id',
         'position',
         'status',
+        'views',
     ];
 
     /**
@@ -24,6 +28,14 @@ class Gallery extends Model
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id', 'id_p');
+    }
+
+    /**
+     * Get the kategori that owns the gallery
+     */
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id_k');
     }
 
     public function fotos()

@@ -9,7 +9,7 @@
     <style>
         :root {
             --oxford-navy: #0a1f44;
-            --oxford-gold: #d4af37;
+            --oxford-gold: #c5a572;
             --oxford-navy-light: #1a3a5c;
         }
         .font-serif { font-family: 'Playfair Display', serif; }

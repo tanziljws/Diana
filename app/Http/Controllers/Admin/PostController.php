@@ -68,10 +68,10 @@ class PostController extends Controller
         $data = $request->all();
         
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($post->image && file_exists(public_path($post->image))) {
-                unlink(public_path($post->image));
-            }
+            // Skip deleting old image to avoid unlink errors
+            // if ($post->image && file_exists(public_path($post->image))) {
+            //     unlink(public_path($post->image));
+            // }
             
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -86,10 +86,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        // Delete image if exists
-        if ($post->image && file_exists(public_path($post->image))) {
-            unlink(public_path($post->image));
-        }
+        // Skip deleting image file to avoid unlink errors
+        // if ($post->image && file_exists(public_path($post->image))) {
+        //     unlink(public_path($post->image));
+        // }
         
         $post->delete();
 

@@ -17,4 +17,9 @@ class Kategori extends Model
     {
         return $this->hasMany(Post::class, 'kategori_id', 'id_k');
     }
+    
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'kategori_id', 'id_k');
+    }
 }

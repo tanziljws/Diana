@@ -10,6 +10,9 @@ class AgendaController extends Controller
 {
     public function index()
     {
+        // Update expired agendas before displaying
+        Agenda::updateExpiredAgendas();
+        
         $agendas = Agenda::latest()->get();
         return view('admin.agendas.index', compact('agendas'));
     }
@@ -25,7 +28,9 @@ class AgendaController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'status' => 'required|in:active,inactive',
+            'waktu' => 'required|string',
+            'lokasi' => 'required|string|max:255',
+            'status' => 'required|in:upcoming,ongoing,completed',
         ]);
 
         Agenda::create($request->all());
@@ -49,7 +54,9 @@ class AgendaController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'status' => 'required|in:active,inactive',
+            'waktu' => 'required|string',
+            'lokasi' => 'required|string|max:255',
+            'status' => 'required|in:upcoming,ongoing,completed',
         ]);
 
         $agenda->update($request->all());

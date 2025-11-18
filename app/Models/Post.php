@@ -17,6 +17,7 @@ class Post extends Model
         'konten',
         'kategori_id',
         'status',
+        'image',
     ];
 
     /**

@@ -11,9 +11,9 @@
     <style>
         :root {
             --oxford-navy: #0a1f44;
-            --oxford-gold: #d4af37;
+            --oxford-gold: #c5a572;
             --oxford-navy-light: #1a3a5c;
-            --oxford-gold-light: #e6c757;
+            --oxford-gold-light: #c5a572;
             --oxford-dark: #1a1a1a;
             --oxford-dark-light: #2d2d2d;
             --oxford-dark-lighter: #404040;

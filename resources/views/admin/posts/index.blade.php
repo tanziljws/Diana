@@ -48,7 +48,6 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $post->created_at->format('M d, Y') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('admin.posts.show', $post) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                             <a href="{{ route('admin.posts.edit', $post) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
                             <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" class="inline">
                                 @csrf

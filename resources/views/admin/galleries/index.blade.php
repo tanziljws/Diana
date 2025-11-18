@@ -23,8 +23,8 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="h-48 bg-gray-200 relative">
                     @if($gallery->fotos->count() > 0)
-                        <img src="{{ asset($gallery->fotos->first()->path_foto) }}" 
-                             alt="{{ $gallery->nama_gallery }}" 
+                        <img src="{{ asset($gallery->fotos->first()->file ?? $gallery->fotos->first()->path_foto) }}" 
+                             alt="Gallery Photo" 
                              class="w-full h-full object-cover">
                         <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
                             {{ $gallery->fotos->count() }} photos
@@ -43,8 +43,6 @@
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500">{{ $gallery->created_at->format('M d, Y') }}</span>
                         <div class="flex space-x-2">
-                            <a href="{{ route('admin.galleries.show', $gallery) }}" 
-                               class="text-blue-600 hover:text-blue-900 text-sm">View</a>
                             <a href="{{ route('admin.galleries.edit', $gallery) }}" 
                                class="text-green-600 hover:text-green-900 text-sm">Edit</a>
                             <form action="{{ route('admin.galleries.destroy', $gallery) }}" method="POST" class="inline">

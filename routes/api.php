@@ -62,12 +62,19 @@ Route::get('/kategoris', function() {
 });
 
 Route::get('/galleries', function() {
-    $galleries = DB::table('gallery')->get();
+    $galleries = \App\Models\Gallery::with(['fotos', 'kategori', 'post.kategori'])->get();
     return response()->json($galleries);
 });
 
+// Gallery interactions
+Route::post('/galleries/{gallery}/view', [\App\Http\Controllers\GalleryInteractionController::class, 'recordView']);
+
 Route::get('/agendas', function() {
-    $agendas = DB::table('agenda')->get();
+    // Update expired agendas before fetching
+    \App\Models\Agenda::updateExpiredAgendas();
+    
+    // Return all agendas for user view
+    $agendas = \App\Models\Agenda::all();
     return response()->json($agendas);
 });
 

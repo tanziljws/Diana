@@ -3,87 +3,203 @@
 @section('title', 'Create Post')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto">
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-oxford-navy to-oxford-navy-light px-6 py-4">
-                <h1 class="text-2xl font-bold text-oxford-gold">Create New Post</h1>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-8">
+    <div class="container mx-auto px-4">
+        <!-- Page Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-oxford-navy rounded-full mb-4">
+                <svg class="w-8 h-8 text-oxford-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
             </div>
-            
-            <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="p-6">
-                @csrf
+            <h1 class="text-4xl font-serif font-bold text-oxford-navy mb-2">Create New Post</h1>
+            <p class="text-oxford-gold font-medium">Share news and updates with the school community</p>
+        </div>
+
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+                <!-- Form Header -->
+                <div class="bg-gradient-to-r from-oxford-navy via-oxford-navy-light to-oxford-navy px-8 py-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-oxford-gold rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-oxford-navy" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-serif font-bold text-white">Post Information</h2>
+                            <p class="text-oxford-gold text-sm">Fill in the details below to create your post</p>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                        <input type="text" name="judul" id="judul" value="{{ old('judul') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-oxford-gold focus:border-transparent" 
-                               required>
-                        @error('judul')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="p-8 space-y-8">
+                    @csrf
+                    
+                    <!-- Basic Information Section -->
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="text-lg font-serif font-semibold text-oxford-navy mb-4 flex items-center">
+                            <div class="w-6 h-6 bg-oxford-gold rounded-full flex items-center justify-center mr-2">
+                                <span class="text-xs font-bold text-oxford-navy">1</span>
+                            </div>
+                            Basic Information
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="judul" class="block text-sm font-semibold text-oxford-navy mb-2 flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-oxford-gold" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"></path>
+                                    </svg>
+                                    Post Title *
+                                </label>
+                                <input type="text" name="judul" id="judul" value="{{ old('judul') }}" 
+                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-oxford-gold focus:ring-4 focus:ring-oxford-gold/20 transition-all duration-300 font-medium" 
+                                       placeholder="Enter an engaging title for your post"
+                                       required>
+                                @error('judul')
+                                    <p class="mt-2 text-sm text-red-600 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label for="kategori_id" class="block text-sm font-semibold text-oxford-navy mb-2 flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-oxford-gold" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
+                                    </svg>
+                                    Category *
+                                </label>
+                                <select name="kategori_id" id="kategori_id" 
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-oxford-gold focus:ring-4 focus:ring-oxford-gold/20 transition-all duration-300 font-medium text-gray-900" required>
+                                    <option value="" class="text-gray-500">Select a category</option>
+                                    @foreach($kategoris as $kategori)
+                                        <option value="{{ $kategori->id_k }}" class="text-gray-900" {{ old('kategori_id') == $kategori->id_k ? 'selected' : '' }}>{{ $kategori->kategori }}</option>
+                                    @endforeach
+                                </select>
+                                @error('kategori_id')
+                                    <p class="mt-2 text-sm text-red-600 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="mb-6">
-                        <label for="kategori_id" class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
-                        <select name="kategori_id" id="kategori_id" 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-oxford-gold focus:border-transparent transition-all duration-200" required>
-                            <option value="">Pilih Kategori</option>
-                            @foreach($kategoris as $kategori)
-                                <option value="{{ $kategori->id_k }}">{{ $kategori->kategori }}</option>
-                            @endforeach
-                        </select>
-                        @error('kategori_id')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <label for="konten" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-                    <textarea name="konten" id="konten" rows="8" 
-                              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                              required>{{ old('konten') }}</textarea>
-                    @error('konten')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
-                        <input type="file" name="image" id="image" accept="image/*"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        @error('image')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                    <!-- Content Section -->
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="text-lg font-serif font-semibold text-oxford-navy mb-4 flex items-center">
+                            <div class="w-6 h-6 bg-oxford-gold rounded-full flex items-center justify-center mr-2">
+                                <span class="text-xs font-bold text-oxford-navy">2</span>
+                            </div>
+                            Content & Description
+                        </h3>
+                        
+                        <div class="space-y-2">
+                            <label for="konten" class="block text-sm font-semibold text-oxford-navy mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-oxford-gold" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
+                                </svg>
+                                Post Content *
+                            </label>
+                            <textarea name="konten" id="konten" rows="10" 
+                                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-oxford-gold focus:ring-4 focus:ring-oxford-gold/20 transition-all duration-300 font-medium resize-none" 
+                                      placeholder="Write your post content here. Be descriptive and engaging..."
+                                      required>{{ old('konten') }}</textarea>
+                            @error('konten')
+                                <p class="mt-2 text-sm text-red-600 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"></path>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
                     </div>
                     
-                    <div>
-                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                        <select name="status" id="status" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                                required>
-                            <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                            <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
-                        </select>
-                        @error('status')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                    <!-- Media & Settings Section -->
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="text-lg font-serif font-semibold text-oxford-navy mb-4 flex items-center">
+                            <div class="w-6 h-6 bg-oxford-gold rounded-full flex items-center justify-center mr-2">
+                                <span class="text-xs font-bold text-oxford-navy">3</span>
+                            </div>
+                            Media & Settings
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="image" class="block text-sm font-semibold text-oxford-navy mb-2 flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-oxford-gold" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"></path>
+                                    </svg>
+                                    Featured Image
+                                </label>
+                                <div class="relative">
+                                    <input type="file" name="image" id="image" accept="image/*"
+                                           class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-oxford-gold focus:ring-4 focus:ring-oxford-gold/20 transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-oxford-gold file:text-oxford-navy file:font-semibold hover:file:bg-opacity-90">
+                                    <p class="mt-2 text-xs text-gray-500">Upload a high-quality image (JPG, PNG, GIF). Recommended size: 1200x600px</p>
+                                </div>
+                                @error('image')
+                                    <p class="mt-2 text-sm text-red-600 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label for="status" class="block text-sm font-semibold text-oxford-navy mb-2 flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-oxford-gold" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                    </svg>
+                                    Publication Status *
+                                </label>
+                                <select name="status" id="status" 
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-oxford-gold focus:ring-4 focus:ring-oxford-gold/20 transition-all duration-300 font-medium text-gray-900" 
+                                        required>
+                                    <option value="draft" class="text-gray-900" {{ old('status') == 'draft' ? 'selected' : '' }}>📝 Draft - Save for later</option>
+                                    <option value="published" class="text-gray-900" {{ old('status') == 'published' ? 'selected' : '' }}>🚀 Published - Make it live</option>
+                                </select>
+                                @error('status')
+                                    <p class="mt-2 text-sm text-red-600 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"></path>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="flex items-center justify-between">
-                    <a href="{{ route('admin.posts.index') }}" 
-                       class="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
-                        Cancel
-                    </a>
-                    <button type="submit" 
-                            class="bg-oxford-navy hover:bg-oxford-navy-light text-oxford-gold font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
-                        Create Post
-                    </button>
-                </div>
-            </form>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                        <a href="{{ route('admin.posts.index') }}" 
+                           class="inline-flex items-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Manage Posts
+                        </a>
+                        <button type="submit" 
+                                class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-oxford-navy to-oxford-navy-light hover:from-oxford-navy-light hover:to-oxford-navy text-oxford-gold font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Create Post
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

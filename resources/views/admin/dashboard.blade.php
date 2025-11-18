@@ -160,7 +160,7 @@
     
     <div class="min-h-screen flex">
         <!-- Sidebar -->
-        <div class="oxford-sidebar text-oxford-cream w-72 min-h-screen p-6">
+        <div class="oxford-sidebar text-oxford-cream w-72 h-screen fixed left-0 top-0 p-6 overflow-y-auto">
             <div class="flex items-center mb-8 pb-6 border-b border-oxford-gold border-opacity-30">
                 <img src="/oxford-logo.svg" alt="Oxford Logo" class="h-12 w-12 mr-4">
                 <div>
@@ -200,12 +200,6 @@
                     </svg>
                     Agendas
                 </a>
-                <a href="#" onclick="showSection('api-testing')" class="flex items-center px-4 py-3 hover:bg-oxford-blue hover:bg-opacity-30 rounded-lg transition-all duration-200" id="nav-api-testing">
-                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"/>
-                    </svg>
-                    API Testing
-                </a>
             </nav>
             
             <div class="mt-auto pt-8">
@@ -219,17 +213,20 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1">
+        <div class="flex-1 ml-72">
             <header class="oxford-card rounded-none border-l-0 border-r-0 border-t-0 px-8 py-6 mb-6">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-3xl font-serif font-bold text-oxford-navy" id="pageTitle">Dashboard</h2>
                         <p class="text-oxford-gold italic font-medium font-script">Oxford High School Administration</p>
                     </div>
-                    <div class="text-oxford-navy opacity-20">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                    <div class="relative">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-oxford-gold to-yellow-500 rounded-full opacity-20 blur-lg"></div>
+                        <div class="relative bg-gradient-to-br from-oxford-navy to-blue-900 p-4 rounded-2xl shadow-xl">
+                            <svg class="w-10 h-10 text-oxford-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -238,62 +235,286 @@
                 <!-- Dashboard Overview -->
                 <div id="dashboardSection">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 glitter-effect pulse-glow">
+                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-oxford-navy text-sm font-semibold uppercase tracking-wide mb-2">Total Posts</p>
-                                    <p class="text-4xl font-bold text-oxford-navy" id="totalPosts">0</p>
+                                    <p class="text-oxford-navy text-sm font-semibold uppercase tracking-wide mb-2">Posts</p>
+                                    <p class="text-4xl font-bold text-oxford-navy" id="totalPosts">{{ $totalPosts ?? 0 }}</p>
                                 </div>
-                                <div class="bg-oxford-navy p-3 rounded-full">
-                                    <svg class="w-8 h-8 text-oxford-cream" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"/>
+                                <div class="bg-oxford-navy p-4 rounded-xl shadow-lg">
+                                    <svg class="w-8 h-8 text-oxford-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                     </svg>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 glitter-effect pulse-glow">
+                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-oxford-navy text-sm font-semibold uppercase tracking-wide mb-2">Categories</p>
-                                    <p class="text-4xl font-bold text-oxford-navy" id="totalCategories">0</p>
+                                    <p class="text-4xl font-bold text-oxford-navy" id="totalCategories">{{ $totalCategories ?? 0 }}</p>
                                 </div>
-                                <div class="bg-oxford-gold p-3 rounded-full">
-                                    <svg class="w-8 h-8 text-oxford-navy" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
+                                <div class="bg-oxford-gold p-4 rounded-xl shadow-lg">
+                                    <svg class="w-8 h-8 text-oxford-navy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                                     </svg>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 glitter-effect pulse-glow">
+                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-oxford-navy text-sm font-semibold uppercase tracking-wide mb-2">Galleries</p>
-                                    <p class="text-4xl font-bold text-oxford-navy" id="totalGalleries">0</p>
+                                    <p class="text-4xl font-bold text-oxford-navy" id="totalGalleries">{{ $totalGalleries ?? 0 }}</p>
                                 </div>
-                                <div class="bg-oxford-blue p-3 rounded-full">
-                                    <svg class="w-8 h-8 text-oxford-cream" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                <div class="bg-oxford-navy p-4 rounded-xl shadow-lg">
+                                    <svg class="w-8 h-8 text-oxford-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 glitter-effect pulse-glow">
+                        <div class="oxford-card rounded-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-oxford-navy text-sm font-semibold uppercase tracking-wide mb-2">Agendas</p>
-                                    <p class="text-4xl font-bold text-oxford-navy" id="totalAgendas">0</p>
+                                    <p class="text-4xl font-bold text-oxford-navy" id="totalAgendas">{{ $totalAgendas ?? 0 }}</p>
                                 </div>
-                                <div class="bg-oxford-accent p-3 rounded-full">
-                                    <svg class="w-8 h-8 text-oxford-cream" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
+                                <div class="bg-oxford-gold p-4 rounded-xl shadow-lg">
+                                    <svg class="w-8 h-8 text-oxford-navy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Quick Actions & Recent Activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <!-- Quick Actions -->
+                        <div class="oxford-card rounded-xl p-6">
+                            <div class="flex items-center mb-6">
+                                <div class="bg-oxford-navy p-3 rounded-lg mr-4">
+                                    <svg class="w-6 h-6 text-oxford-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-serif font-bold text-oxford-navy">Quick Actions</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <a href="{{ route('admin.posts.create') }}" class="flex items-center justify-between p-4 bg-oxford-cream hover:bg-oxford-gold hover:bg-opacity-20 rounded-lg transition-all duration-300 group">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        <span class="font-semibold text-oxford-navy">Create New Post</span>
+                                    </div>
+                                    <svg class="w-5 h-5 text-oxford-gold transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('admin.galleries.create') }}" class="flex items-center justify-between p-4 bg-oxford-cream hover:bg-oxford-gold hover:bg-opacity-20 rounded-lg transition-all duration-300 group">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        <span class="font-semibold text-oxford-navy">Create New Gallery</span>
+                                    </div>
+                                    <svg class="w-5 h-5 text-oxford-gold transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('admin.agendas.create') }}" class="flex items-center justify-between p-4 bg-oxford-cream hover:bg-oxford-gold hover:bg-opacity-20 rounded-lg transition-all duration-300 group">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        <span class="font-semibold text-oxford-navy">Create New Agenda</span>
+                                    </div>
+                                    <svg class="w-5 h-5 text-oxford-gold transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('admin.kategoris.create') }}" class="flex items-center justify-between p-4 bg-oxford-cream hover:bg-oxford-gold hover:bg-opacity-20 rounded-lg transition-all duration-300 group">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        <span class="font-semibold text-oxford-navy">Create New Category</span>
+                                    </div>
+                                    <svg class="w-5 h-5 text-oxford-gold transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- System Info -->
+                        <div class="oxford-card rounded-xl p-6">
+                            <div class="flex items-center mb-6">
+                                <div class="bg-oxford-gold p-3 rounded-lg mr-4">
+                                    <svg class="w-6 h-6 text-oxford-navy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-serif font-bold text-oxford-navy">System Information</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-oxford-cream rounded-lg">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        <span class="text-oxford-navy font-medium">System Status</span>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-500 text-white text-sm font-bold rounded-full">Active</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-oxford-cream rounded-lg">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        <span class="text-oxford-navy font-medium">Last Updated</span>
+                                    </div>
+                                    <span class="text-oxford-gold font-semibold">{{ date('d M Y') }}</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-oxford-cream rounded-lg">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                                        </svg>
+                                        <span class="text-oxford-navy font-medium">Total Content</span>
+                                    </div>
+                                    <span class="text-oxford-gold font-semibold">{{ $totalPosts + $totalGalleries + $totalAgendas }} Items</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-oxford-cream rounded-lg">
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-oxford-navy mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        <span class="text-oxford-navy font-medium">Version</span>
+                                    </div>
+                                    <span class="text-oxford-gold font-semibold">v1.0.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Line Chart -->
+                    <div class="oxford-card rounded-xl p-6">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-oxford-navy p-3 rounded-lg mr-4">
+                                <svg class="w-6 h-6 text-oxford-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-serif font-bold text-oxford-navy">Content Statistics</h3>
+                        </div>
+                        
+                        <!-- Line Chart Canvas -->
+                        <div class="relative bg-oxford-cream rounded-xl p-6" style="height: 300px;">
+                            <canvas id="contentChart"></canvas>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                            <div class="flex items-center justify-center p-3 bg-oxford-cream rounded-lg">
+                                <div class="w-4 h-4 bg-oxford-navy rounded-full mr-2"></div>
+                                <span class="text-oxford-navy font-semibold text-sm">Posts: {{ $totalPosts }}</span>
+                            </div>
+                            <div class="flex items-center justify-center p-3 bg-oxford-cream rounded-lg">
+                                <div class="w-4 h-4 bg-oxford-gold rounded-full mr-2"></div>
+                                <span class="text-oxford-navy font-semibold text-sm">Categories: {{ $totalCategories }}</span>
+                            </div>
+                            <div class="flex items-center justify-center p-3 bg-oxford-cream rounded-lg">
+                                <div class="w-4 h-4 rounded-full mr-2" style="background: #8b9dc3;"></div>
+                                <span class="text-oxford-navy font-semibold text-sm">Galleries: {{ $totalGalleries }}</span>
+                            </div>
+                            <div class="flex items-center justify-center p-3 bg-oxford-cream rounded-lg">
+                                <div class="w-4 h-4 rounded-full mr-2" style="background: #0f4c75;"></div>
+                                <span class="text-oxford-navy font-semibold text-sm">Agendas: {{ $totalAgendas }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        // Create line chart
+                        const ctx = document.getElementById('contentChart').getContext('2d');
+                        const contentChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ['Posts', 'Categories', 'Galleries', 'Agendas'],
+                                datasets: [{
+                                    label: 'Content Count',
+                                    data: [{{ $totalPosts }}, {{ $totalCategories }}, {{ $totalGalleries }}, {{ $totalAgendas }}],
+                                    borderColor: '#002147',
+                                    backgroundColor: 'rgba(0, 33, 71, 0.1)',
+                                    borderWidth: 3,
+                                    fill: true,
+                                    tension: 0.4,
+                                    pointBackgroundColor: ['#002147', '#c5a572', '#8b9dc3', '#0f4c75'],
+                                    pointBorderColor: '#fff',
+                                    pointBorderWidth: 2,
+                                    pointRadius: 6,
+                                    pointHoverRadius: 8
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltip: {
+                                        backgroundColor: '#002147',
+                                        titleColor: '#c5a572',
+                                        bodyColor: '#fff',
+                                        borderColor: '#c5a572',
+                                        borderWidth: 1,
+                                        padding: 12,
+                                        displayColors: false,
+                                        callbacks: {
+                                            label: function(context) {
+                                                return context.parsed.y + ' items';
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            color: '#002147',
+                                            font: {
+                                                weight: 'bold'
+                                            },
+                                            stepSize: 1
+                                        },
+                                        grid: {
+                                            color: 'rgba(0, 33, 71, 0.1)'
+                                        }
+                                    },
+                                    x: {
+                                        ticks: {
+                                            color: '#002147',
+                                            font: {
+                                                weight: 'bold'
+                                            }
+                                        },
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    </script>
                 </div>
 
                 <!-- Posts Section -->
@@ -496,105 +717,6 @@
                     </div>
                 </div>
 
-                <!-- API Testing Section -->
-                <div id="api-testing-section" class="hidden">
-                    <div class="bg-gradient-to-br from-gray-900 to-oxford-navy rounded-lg shadow-xl border-t-4 border-oxford-gold p-8 mb-8">
-                        <h2 class="text-3xl font-serif font-bold text-white mb-8 text-center">🔧 API Testing Interface</h2>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <!-- Authentication -->
-                            <div class="bg-gradient-to-br from-oxford-navy to-blue-900 text-white rounded-lg shadow-lg p-6 border border-oxford-gold border-opacity-30">
-                                <h3 class="text-xl font-serif font-bold text-oxford-gold mb-4">🔐 Authentication</h3>
-                            
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-oxford-gold mb-2">Test Login</label>
-                                        <button onclick="testLogin()" class="bg-oxford-gold text-oxford-navy px-4 py-2 rounded-lg hover:bg-yellow-400 font-semibold transition-colors">
-                                            🚀 Test Login
-                                        </button>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-oxford-gold mb-2">Test Register</label>
-                                        <button onclick="testRegister()" class="bg-white text-oxford-navy px-4 py-2 rounded-lg hover:bg-gray-100 font-semibold transition-colors">
-                                            ✨ Test Register
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Public Data -->
-                            <div class="bg-gradient-to-br from-oxford-gold to-yellow-500 text-oxford-navy rounded-lg shadow-lg p-6 border border-oxford-gold border-opacity-50">
-                                <h3 class="text-xl font-serif font-bold mb-4">📊 Public Data</h3>
-                                
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-medium mb-2">Posts</label>
-                                        <button onclick="getPosts()" class="bg-oxford-navy text-white px-4 py-2 rounded-lg hover:bg-blue-900 font-semibold transition-colors">
-                                            📝 Get Posts
-                                        </button>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium mb-2">Categories</label>
-                                        <button onclick="getCategories()" class="bg-oxford-navy text-white px-4 py-2 rounded-lg hover:bg-blue-900 font-semibold transition-colors">
-                                            📂 Get Categories
-                                        </button>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium mb-2">Agendas</label>
-                                        <button onclick="getAgendas()" class="bg-oxford-navy text-white px-4 py-2 rounded-lg hover:bg-blue-900 font-semibold transition-colors">
-                                            📅 Get Agendas
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Response Display -->
-                    <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl border-t-4 border-oxford-gold p-8 mb-8">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-6 text-center">📋 API Response</h3>
-                        <div id="response" class="bg-black bg-opacity-50 border-2 border-oxford-gold p-6 rounded-lg min-h-32 text-white font-mono">
-                            <p class="text-oxford-gold font-medium">Response will appear here...</p>
-                        </div>
-                    </div>
-
-                    <!-- API Endpoints -->
-                    <div class="bg-gradient-to-br from-gray-900 to-oxford-navy rounded-lg shadow-xl border-t-4 border-oxford-gold p-8 mb-8">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-6 text-center">🌐 Available API Endpoints</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="bg-gradient-to-br from-green-900 to-green-800 p-6 rounded-lg border-2 border-green-400 border-opacity-30">
-                                <h4 class="font-serif font-bold text-green-300 mb-4 text-lg flex items-center">
-                                    🌍 Public Endpoints
-                                </h4>
-                                <ul class="space-y-3 text-sm">
-                                    <li><code class="bg-green-800 text-green-200 px-3 py-1 rounded-lg font-mono">POST /api/register</code> - Register user</li>
-                                    <li><code class="bg-green-800 text-green-200 px-3 py-1 rounded-lg font-mono">POST /api/login</code> - Login user</li>
-                                    <li><code class="bg-green-800 text-green-200 px-3 py-1 rounded-lg font-mono">GET /api/posts</code> - Get all posts</li>
-                                    <li><code class="bg-green-800 text-green-200 px-3 py-1 rounded-lg font-mono">GET /api/kategoris</code> - Get all categories</li>
-                                    <li><code class="bg-green-800 text-green-200 px-3 py-1 rounded-lg font-mono">GET /api/agendas</code> - Get all agendas</li>
-                                    <li><code class="bg-green-800 text-green-200 px-3 py-1 rounded-lg font-mono">GET /api/profiles</code> - Get school profiles</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="bg-gradient-to-br from-red-900 to-red-800 p-6 rounded-lg border-2 border-red-400 border-opacity-30">
-                                <h4 class="font-serif font-bold text-red-300 mb-4 text-lg flex items-center">
-                                    🔒 Admin Only Endpoints
-                                </h4>
-                                <ul class="space-y-3 text-sm">
-                                    <li><code class="bg-red-800 text-red-200 px-3 py-1 rounded-lg font-mono">POST /api/posts</code> - Create post</li>
-                                    <li><code class="bg-red-800 text-red-200 px-3 py-1 rounded-lg font-mono">PUT /api/posts/{id}</code> - Update post</li>
-                                    <li><code class="bg-red-800 text-red-200 px-3 py-1 rounded-lg font-mono">DELETE /api/posts/{id}</code> - Delete post</li>
-                                    <li><code class="bg-red-800 text-red-200 px-3 py-1 rounded-lg font-mono">POST /api/kategoris</code> - Create category</li>
-                                    <li><code class="bg-red-800 text-red-200 px-3 py-1 rounded-lg font-mono">POST /api/agendas</code> - Create agenda</li>
-                                    <li><code class="bg-red-800 text-red-200 px-3 py-1 rounded-lg font-mono">POST /api/galleries</code> - Create gallery</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </main>
         </div>
     </div>
@@ -603,34 +725,13 @@
         axios.defaults.baseURL = window.location.origin;
 
         document.addEventListener('DOMContentLoaded', function() {
-            loadDashboardData();
+            // Dashboard data is already loaded from server-side (Blade)
+            // No need to fetch via API
         });
 
         function checkAuth() {
             // No authentication check - demo mode
             return true;
-        }
-
-        async function loadDashboardData() {
-            try {
-                const [postsRes, categoriesRes, galleriesRes, agendasRes] = await Promise.all([
-                    axios.get('/api/posts'),
-                    axios.get('/api/kategoris'),
-                    axios.get('/api/galleries'),
-                    axios.get('/api/agendas')
-                ]);
-
-                document.getElementById('totalPosts').textContent = postsRes.data.length || 0;
-                document.getElementById('totalCategories').textContent = categoriesRes.data.length || 0;
-                document.getElementById('totalGalleries').textContent = galleriesRes.data.length || 0;
-                document.getElementById('totalAgendas').textContent = agendasRes.data.length || 0;
-            } catch (error) {
-                console.error('Error loading dashboard data:', error);
-                document.getElementById('totalPosts').textContent = '0';
-                document.getElementById('totalCategories').textContent = '0';
-                document.getElementById('totalGalleries').textContent = '0';
-                document.getElementById('totalAgendas').textContent = '0';
-            }
         }
 
         function showSection(section) {
@@ -639,30 +740,22 @@
             document.getElementById('categoriesSection').classList.add('hidden');
             document.getElementById('galleriesSection').classList.add('hidden');
             document.getElementById('agendasSection').classList.add('hidden');
-            document.getElementById('api-testing-section').classList.add('hidden');
             
             document.querySelectorAll('nav a').forEach(link => {
                 link.classList.remove('bg-oxford-gold', 'text-oxford-navy');
                 link.classList.add('hover:bg-oxford-blue', 'hover:bg-opacity-30');
             });
             
-            if (section === 'api-testing') {
-                document.getElementById('api-testing-section').classList.remove('hidden');
-                document.getElementById('nav-api-testing').classList.add('bg-oxford-gold', 'text-oxford-navy');
-                document.getElementById('nav-api-testing').classList.remove('hover:bg-oxford-blue', 'hover:bg-opacity-30');
-            } else {
-                document.getElementById(section + 'Section').classList.remove('hidden');
-                document.getElementById('nav-' + section).classList.add('bg-oxford-gold', 'text-oxford-navy');
-                document.getElementById('nav-' + section).classList.remove('hover:bg-oxford-blue', 'hover:bg-opacity-30');
-            }
+            document.getElementById(section + 'Section').classList.remove('hidden');
+            document.getElementById('nav-' + section).classList.add('bg-oxford-gold', 'text-oxford-navy');
+            document.getElementById('nav-' + section).classList.remove('hover:bg-oxford-blue', 'hover:bg-opacity-30');
 
             const titles = {
                 'dashboard': 'Dashboard',
                 'posts': 'Posts & News Management',
                 'categories': 'Categories Management',
                 'galleries': 'Galleries Management',
-                'agendas': 'Agendas Management',
-                'api-testing': 'API Testing Interface'
+                'agendas': 'Agendas Management'
             };
             document.getElementById('pageTitle').textContent = titles[section];
 

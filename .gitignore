@@ -16,6 +16,9 @@
 /public/build
 /public/hot
 /public/storage
+# Pastikan public/uploads dan public/images TIDAK di-ignore
+!/public/uploads/
+!/public/images/
 /storage/*.key
 /storage/pail
 /vendor
