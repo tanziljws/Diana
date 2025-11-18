@@ -1,0 +1,9 @@
+# Perintah langsung untuk import database ke Railway
+
+mysql -h trolley.proxy.rlwy.net -u root -pAoqAPxtaLXnhtJqOjrHMXJZmHRnUajgt --port 46489 --protocol=TCP railway
+
+# Atau jika sudah ada file SQL:
+mysql -h trolley.proxy.rlwy.net -u root -pAoqAPxtaLXnhtJqOjrHMXJZmHRnUajgt --port 46489 --protocol=TCP railway < database_backup.sql
+
+# RECOMMENDED: Gunakan Laravel migrations
+php artisan migrate:fresh --seed
