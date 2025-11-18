@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('konten');
             $table->unsignedBigInteger('kategori_id');
             $table->string('status')->default('published');
+            $table->string('image')->nullable();
             $table->timestamps();
             
             $table->foreign('kategori_id')->references('id_k')->on('kategori')->onDelete('cascade');
